@@ -14,4 +14,16 @@ print(inventory["apple"]["quantity"])
 def display_inventory():
     for key, val in inventory.items():
         print(f"{key} costs {val["price"]}, {val["quantity"]} left")
+        
 display_inventory()
+
+def sell_item(item_name, quantity):
+    if item_name not in inventory.keys():
+        print("Item not found.")
+    elif inventory[item_name]["quantity"] >= quantity:
+        inventory[item_name]["quantity"] -=quantity
+        print(f"Total Price: {inventory[item_name]["price"] * quantity}")
+    else:
+        print("Not enough stock.")
+        
+sell_item("banana", 2)
