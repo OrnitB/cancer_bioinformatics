@@ -26,4 +26,15 @@ def sell_item(item_name, quantity):
     else:
         print("Not enough stock.")
         
+def add_item(item_name, price, quantity):
+    if item_name in inventory:
+        inventory[item_name]["quantity"] += quantity
+        inventory[item_name]["price"] = price
+    else:
+        inventory[item_name] = {"quantity": quantity, "price": price}
+        
+        
 sell_item("banana", 2)
+print(inventory)
+add_item("kiwi", 1.2, 4)
+print(inventory)
