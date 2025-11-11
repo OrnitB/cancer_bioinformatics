@@ -6,7 +6,7 @@ Created on Sun Nov 17 19:52:59 2024
 """
 
 import os
-os.chdir("C:/Users/stavn/OneDrive/שולחן העבודה/Cancer_Bioinformatics/2024-2025/1_introduction_to_data_analysis")
+# os.chdir("C:/Users/stavn/OneDrive/שולחן העבודה/Cancer_Bioinformatics/2024-2025/1_introduction_to_data_analysis")
 
 
 ##Conditions
@@ -83,7 +83,7 @@ else:
 #While loop
 x = 500
 while x != 0:
-    print("x = " + x)
+    print("x = " + str(x))
     x//=2
 #What's the last printed X? 
 #What's x value?
@@ -144,7 +144,7 @@ eize_kef_to("Stav")
 #A function that returns a value
 def func1(arg1,arg2): 
     return arg1 - arg2 / 2    
-
+func1(5, 3)
 #Call the function
 var1 = 5
 var2 = 10
@@ -223,10 +223,10 @@ for item in my_set:
     print(item)
 my_set_2 = {1,3,6,7}
 #set operations
-print(my_set.union(my_set_2))
-print(my_set.intersection(my_set_2))
-print(my_set.symmetric_difference(my_set_2))
-print(my_set.difference(my_set_2))
+print(my_set.union(my_set_2)) # איחוד בין 2 הקבוצות, כל האיברים כולל החיתוך שלהם
+print(my_set.intersection(my_set_2)) # רק החיתוך בין הקבוצות
+print(my_set.symmetric_difference(my_set_2)) # הכל חוץ מהחיתוך
+print(my_set.difference(my_set_2)) # חיסור, האיברים של הראשון ללא האיברים שגם יש בשני
 
 ##dicts
 my_dict = {"Shas":"Haredim","Yehadut_Hatorah":"Haredim",\
