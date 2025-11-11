@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
+import pandas as pd
 
+
+# ex 1
 def convert_case(text):
     upper = text.upper()
     lower = text.lower()
@@ -16,3 +19,5 @@ def extract_file_info(path):
 
 convert_case("AsdfFBHdfdf")
 extract_file_info(path)
+
+# ex 2
