@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import pandas as pd
-import os
+# import os
 
 
 # ex 1
@@ -22,10 +22,11 @@ convert_case("AsdfFBHdfdf")
 extract_file_info(path)
 
 # ex 2
-os.chdir("C:Users/ornitb/Documents/Technion/research_and_studies/courses/ביואינפורמטיקה של סרטן/cancer_bioinformatics/tutorial_2")
+# os.chdir("C:Users/ornitb/Documents/Technion/research_and_studies/courses/ביואינפורמטיקה של סרטן/cancer_bioinformatics/tutorial_2")
 
 df = pd.read_csv("students.txt", delimiter=',')
 print(df.head())
+print(df.iloc[:5,])
 df[["Name", "Grade"]]
 print(df["Grade"].sum() / len(df.iloc[:]))
 
