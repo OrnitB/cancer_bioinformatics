@@ -1,0 +1,8 @@
+Name,Age,Grade,Subject,City
+Alice,20,85,Math,New York
+Bob,22,90,History,San Francisco
+Charlie,21,78,Math,Los Angeles
+Diana,23,88,Physics,New York
+Eve,20,92,Math,San Francisco
+Frank,24,80,History,Los Angeles
+Grace,21,95,Physics,New York
