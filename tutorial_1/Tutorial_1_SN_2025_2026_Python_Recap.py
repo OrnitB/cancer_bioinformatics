@@ -5,10 +5,6 @@ Created on Sun Nov 17 19:52:59 2024
 @author: stavn
 """
 
-import os
-# os.chdir("C:/Users/stavn/OneDrive/שולחן העבודה/Cancer_Bioinformatics/2024-2025/1_introduction_to_data_analysis")
-
-
 ##Conditions
 #If-else
 x=80
