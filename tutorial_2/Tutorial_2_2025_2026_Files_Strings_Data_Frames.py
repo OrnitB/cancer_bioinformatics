@@ -119,6 +119,7 @@ print(df.loc[rows,cols])
 #Access to elements with slicing
 features_list = ["sound","is_cute"]
 print(df.loc["Cat",features_list])
+print(df.iloc[:2, 1:3]) # [rows, columns]
 
 #Combination- Use boolean indexing with column selection
 #Filter only the animals whose sound starts with a letter bigger than "n"
@@ -127,6 +128,9 @@ sounds_boolean = df["sound"]>"n"
 cols = ["is_cute","sound"]
 df.loc[sounds_boolean, cols]
 
+# df sorting
+df.sort_values("avg_weight_kg", ascending=False)
+df.sort_values(by=["avg_weight_kg", "is_cute"], ascending=False)
 
 
 #Exercise 1 String Manipulation solution:
