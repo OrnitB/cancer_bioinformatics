@@ -53,3 +53,11 @@ print(birthdays_by_city_avg)
 
 merged_birthdays_df = pd.merge(birthdays, extra_birthdays, right_on="Shem", left_on="Name", how="left")
 merged_birthdays_df
+
+plt.bar(merged_birthdays_df["year"], height=merged_birthdays_df["Salary"])
+
+plt.xlabel("Birth year")
+plt.ylabel("Salary")
+plt.title("Correlation Between Birth year and Salary")
+
+plt.show()
