@@ -37,3 +37,9 @@ group_by_iq_sex_preg = penguins_merge.groupby(by=["sex", "is_pregnant"])["IQ"].m
 print(group_by_iq_sex_preg)
 
 # ex 2
+birthdays = pd.read_csv("birthdays_df.csv")
+extra_birthdays = pd.read_csv("extra_birthday_df.csv")
+birthdays.head()
+extra_birthdays.head()
+
+print(birthdays["Birthdate"].split(sep="/"))
