@@ -42,4 +42,14 @@ extra_birthdays = pd.read_csv("extra_birthday_df.csv")
 birthdays.head()
 extra_birthdays.head()
 
-print(birthdays["Birthdate"].split(sep="/"))
+birthdays["Birthdate"] = pd.to_datetime(birthdays["Birthdate"], dayfirst=True, errors="coerce")
+birthdays["day"] = birthdays["Birthdate"].dt.day
+birthdays["month"] = birthdays["Birthdate"].dt.month
+birthdays["year"] = birthdays["Birthdate"].dt.year
+birthdays.head()
+
+birthdays_by_city_avg = birthdays.groupby(by=["City"])["year"].mean()
+print(birthdays_by_city_avg)
+
+merged_birthdays_df = pd.merge(birthdays, extra_birthdays, right_on="Shem", left_on="Name", how="left")
+merged_birthdays_df
