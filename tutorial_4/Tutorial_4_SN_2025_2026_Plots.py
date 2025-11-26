@@ -29,8 +29,8 @@ iris = sns.load_dataset('iris')
 diamonds = sns.load_dataset('diamonds')
 mpg = sns.load_dataset('mpg')
 car_crashes = sns.load_dataset('car_crashes')
-#Scatterplot
 
+#Scatterplot
 sns.relplot(data=penguins, x='bill_length_mm', y= 'bill_depth_mm', size= 'flipper_length_mm', hue="island")
 sns.relplot(data=penguins, x='bill_length_mm', y= 'flipper_length_mm', hue="island",markers='*',)
 sns.scatterplot(
@@ -94,6 +94,7 @@ sns.kdeplot(data=diamonds,x='price',hue='cut')
 plt.title('Diamonds Prices Distribution',fontdict = font_title)
 plt.xlabel('Diamond price [$]',fontdict=font_lables)
 plt.ylabel('Count',fontdict=font_lables)
+
 #Line chart
 sns.relplot(data=diamonds,x="carat",y="price",kind="line")
 
@@ -150,3 +151,97 @@ axes[0].set_title('First Plot')
 axes[1].bar(x, y, color='green')
 axes[1].set_title('Second Plot')
 
+
+
+# Class Exercise 1
+# 1 + 2
+clean = penguins[["body_mass_g", "flipper_length_mm"]].dropna()
+sns.regplot(
+    data=penguins, x="flipper_length_mm", y="body_mass_g",
+    ci=99, marker="x", color=".3", line_kws=dict(color="r")
+)
+penguins_corr, penguins_p_value = pearsonr(clean["body_mass_g"], clean["flipper_length_mm"])
+plt.title(f"Flipper Length as function of Body Mass: r={penguins_corr:.2f}, p={penguins_p_value:.2e}",fontdict=font_title)
+plt.xlabel('Flipper Length [mm]',fontdict=font_lables)
+plt.ylabel('Body Mass [g]',fontdict=font_lables)
+
+# 3
+
+sns.relplot(data=penguins, x='flipper_length_mm', y= 'body_mass_g', kind='scatter', palette="Set2", hue='species')
+plt.title('Flipper length as function of Body Mass',fontdict = font_title)
+plt.xlabel('Flipper Length [mm]',fontdict=font_lables)
+plt.ylabel('Body Mass [g]',fontdict=font_lables)
+
+# 4
+sns.barplot(data = penguins,x='sex',y='body_mass_g',palette="Set2")
+plt.title('Penguins body mass by sex',fontdict = font_title)
+plt.xlabel('Island',fontdict=font_lables)
+plt.ylabel('Body Mass [g]',fontdict=font_lables)
+
+# 5
+sns.boxplot(data = penguins, x='island', y='bill_depth_mm',palette="Set2")
+plt.title('Penguins bill depth by island',fontdict = font_title)
+plt.xlabel('Island',fontdict=font_lables)
+plt.ylabel('Bill depth [MM]',fontdict=font_lables)
+
+
+# Class Exercise 2
+# 1 + 2
+healthexp = sns.load_dataset("healthexp")
+country_counts = healthexp["Country"].value_counts()
+
+plt.figure(figsize=(10, 5))
+sns.countplot(data=healthexp, y="Country", palette="pastel")
+
+plt.title("Distribution of Countries in HealthExpenditure Dataset")
+plt.xlabel("Count")
+plt.ylabel("Country")
+plt.show()
+
+# 3
+print(healthexp.columns)
+
+sns.violinplot(data=healthexp, x="Country", y="Spending_USD", palette="Set2", width=.7, inner="quartile")
+
+plt.title('Range and Density of Spending for Each Country', fontdict=font_title)
+plt.xlabel('Country', fontdict=font_lables)
+plt.ylabel('Spending (US$)', fontdict=font_lables)
+plt.xticks(rotation=45)
+plt.show()
+
+# 4
+usa_only = healthexp[healthexp["Country"] == "USA"]
+
+sns.lineplot(data=usa_only,x='Year', y="Spending_USD", marker="o", color="steelblue")
+plt.title('Spendings by Year - USA only',fontdict = font_title)
+plt.xlabel('Year',fontdict=font_lables)
+plt.ylabel('Spendings',fontdict=font_lables)
+
+# 5
+font_title = {
+    "fontsize": 18,
+    "fontweight": "bold",
+    "color": "darkred"
+}
+
+sns.relplot(data=healthexp, x='Spending_USD', y= 'Life_Expectancy', kind='scatter', palette="Set2", hue='Country')
+plt.suptitle('The Relationship between Spending and Life Expectancy by Country', fontdict = font_title, y=1.02)
+plt.xlabel('Spendings [USD]', fontdict=font_lables)
+plt.ylabel('Life Expectancy', fontdict=font_lables)
+
+
+# 5 alternative
+healthexp_sorted = healthexp.sort_values(by=["Country", "Year"])
+
+sns.lineplot(
+    data=healthexp_sorted,
+    x="Spending_USD",
+    y="Life_Expectancy",
+    hue="Country",
+    marker="o",
+    palette="Set2"
+)
+
+plt.title("Relationship between Spending and Life Expectancy by Country", fontdict=font_title)
+plt.xlabel("Spendings [USD]", fontdict=font_lables)
+plt.ylabel("Life Expectancy", fontdict=font_lables)
