@@ -10,7 +10,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import pandas as pd
-from scipy.stats import pearsonr
+from scipy.stats import spearmanr
+from statannotations.Annotator import Annotator
+import itertools
 
 #1
 mrna_seq = pd.read_csv('data_mrna_seq_v2_rsem.txt', delimiter='\t')
@@ -100,3 +102,91 @@ clinical_final.head()
 
 cna_transposed_filtered.shape
 clinical_final.shape
+
+#10
+cna_transposed_filtered["SUBTYPE"] = clinical_final["SUBTYPE"]
+
+#11
+cna_group_by_subytpe = cna_transposed_filtered.groupby("SUBTYPE")
+
+#12
+cna_group_by_subytpe = cna_group_by_subytpe.median()
+
+#13
+cna_final = cna_group_by_subytpe.T
+cna_final.head()
+cna_final.shape
+
+#14
+# copy number alterations usually affect large segments of a chromosome 
+# (amplifying or deleting millions of base pairs at once). therefore neighbors
+# on the same chromosome often share the exact same copy number score.
+
+#15
+top_genes_by_subtype = {}
+for subtype in cna_final.columns:
+    top25 = cna_final[subtype].sort_values(ascending=False).head(25)
+    
+    top_genes_by_subtype[subtype] = top25
+    
+top_genes_by_subtype
+for subtype, genes in top_genes_by_subtype.items():
+    print(f'\nTop 25 genes for {subtype}')
+    print(genes)
+    
+#16
+cna_transposed_filtered.head()
+
+def gene_boxplot(gene_name):
+    subtypes = sorted(cna_transposed_filtered["SUBTYPE"].dropna().unique())
+    plt.figure(figsize=(14,10))
+    
+    ax = sns.boxplot(data=cna_transposed_filtered, x="SUBTYPE", y=gene_name, order=subtypes)
+    pairs = list(itertools.combinations(subtypes, 2))
+    
+    annotator = Annotator(ax, pairs, data=cna_transposed_filtered, x="SUBTYPE", y=gene_name, order=subtypes)
+    annotator.configure(test="Kruskal", text_format="simple", loc="inside", verbose=2)
+    annotator.apply_and_annotate()
+    
+    plt.title(f'CNA Score for {gene_name}')
+    plt.show()
+    
+gene_boxplot("ERBB2;2064")
+gene_boxplot("IKZF3;22806")
+gene_boxplot("ITPKB;3707")
+
+#17
+basal_high_genes = cna_final[cna_final["BRCA_Basal"] > 0.4].index
+
+mrna_transposed = mrna_seq_filtered.T
+mrna_transposed.head()
+
+mrna_transposed.index = mrna_transposed.index.str[:12]
+mrna_matched = mrna_transposed.loc[common_patients_list]
+
+basal_patients = clinical_final[clinical_final["SUBTYPE"] == "BRCA_Basal"].index
+
+cna_basal = cna_transposed_filtered.loc[basal_patients]
+mrna_basal = mrna_matched.loc[basal_patients]
+
+correlation_results = {}
+
+for gene in basal_high_genes:
+    x = cna_basal[gene]
+    y = mrna_basal[gene]
+    
+    corr, p_val = spearmanr(x, y)
+    
+    correlation_results[gene] = corr
+
+basal_cna_mrna_corr = pd.Series(correlation_results)
+basal_cna_mrna_corr = basal_cna_mrna_corr.dropna()
+basal_cna_mrna_corr = basal_cna_mrna_corr.sort_values(ascending=False)
+print(basal_cna_mrna_corr.sort_index().head())
+
+#18
+top_gene1 = basal_cna_mrna_corr.index[0]
+top_gene2 = basal_cna_mrna_corr.index[1]
+
+gene_boxplot(top_gene1)
+gene_boxplot(top_gene2)
