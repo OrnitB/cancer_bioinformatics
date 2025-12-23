@@ -1,0 +1,36 @@
+#Alignment
+1. Align 2 fastqs - Tumor
+bwa mem /home/stavnaky/ref_grch38/GRCh38.d1.vd1.fa Tumor_CPCT12345678_HJJLGCCXX_S1_L001_R1_001.fastq.gz Tumor_CPCT12345678_HJJLGCCXX_S1_L001_R2_001.fastq.gz > Tumor_CPCT12345678_HJJLGCCXX_S1_L001_001.sam
+2. Align 2 fastqs - Normal
+bwa mem /home/stavnaky/ref_grch38/GRCh38.d1.vd1.fa Normal_CPCT12345678_HJJLGCCXX_S1_L001_R1_001.fastq.gz Normal_CPCT12345678_HJJLGCCXX_S1_L001_R2_001.fastq.gz > Normal_CPCT12345678_HJJLGCCXX_S1_L001_001.sam
+
+#Conversion to BAM
+3. Convert SAM to BAM - Tumor
+samtools view -b -o Tumor_CPCT12345678_HJJLGCCXX_S1_L001_001.bam Tumor_CPCT12345678_HJJLGCCXX_S1_L001_001.sam
+4. Convert SAM to BAM - Normal
+samtools view -b -o Normal_CPCT12345678_HJJLGCCXX_S1_L001_001.bam Normal_CPCT12345678_HJJLGCCXX_S1_L001_001.sam
+
+#Sorting
+5. Sort Tumor
+samtools sort -o Tumor_CPCT12345678_HJJLGCCXX_S1_L001_001_sorted.bam Tumor_CPCT12345678_HJJLGCCXX_S1_L001_001.bam
+6. Sort Normal
+samtools sort -o Normal_CPCT12345678_HJJLGCCXX_S1_L001_001_sorted.bam Normal_CPCT12345678_HJJLGCCXX_S1_L001_001.bam
+
+#Index
+7. Index Tumor
+samtools index Tumor_CPCT12345678_HJJLGCCXX_S1_L001_001_sorted.bam
+8. Index Normal
+samtools index Normal_CPCT12345678_HJJLGCCXX_S1_L001_001_sorted.bam
+
+#Pileup
+9. Pileup tumor and normal together
+bcftools mpileup -Ob -f /home/stavnaky/ref_grch38/GRCh38.d1.vd1.fa Tumor_CPCT12345678_HJJLGCCXX_S1_L001_001_sorted.bam Normal_CPCT12345678_HJJLGCCXX_S1_L001_001_sorted.bam -o CPCT12345678_HJJLGCCXX_S1_L001_001_pileup.bcf
+
+#Variant Call
+10. Convert pileup to variant call file
+bcftools call -mv -Ob -o CPCT12345678_HJJLGCCXX_S1_L001_001_Variants.bcf CPCT12345678_HJJLGCCXX_S1_L001_001_pileup.bcf
+
+
+
+
+

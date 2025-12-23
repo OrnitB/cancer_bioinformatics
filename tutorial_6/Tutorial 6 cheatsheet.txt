@@ -1,0 +1,13 @@
+#Alignment
+bwa mem /home/stavnaky/ref_grch38/GRCh38.d1.vd1.fa sample_R1.fastq sample_R1.fastq > sample.sam
+
+#Note-This specific sample has an error, so I used R1 twice. It should be R1 and R2 normally. 
+
+#Convert to bam
+samtools view -b -o sample.bam sample.sam
+#Sort
+samtools sort -o sample_sorted.bam sample.bam
+#Index
+samtools index sample_sorted.bam
+#Statistics
+samtools stats sample_sorted.bam
