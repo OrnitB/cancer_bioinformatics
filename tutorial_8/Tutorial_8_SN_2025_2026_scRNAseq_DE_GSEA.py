@@ -57,12 +57,27 @@ sc.pl.rank_genes_groups(adata, n_genes=20,key="wilcoxon_types")
 #Visualize types of data
 sc.pl.umap(adata, color=['type'],legend_loc='lower right')
 
-
 #Heatmap
 sc.pl.rank_genes_groups_heatmap(adata, n_genes=5, key="wilcoxon", groupby="louvain_0.6", show_gene_labels=True)
 
 #Dotplot
 sc.pl.rank_genes_groups_dotplot(adata, n_genes=5, key="wilcoxon", groupby="louvain_0.6")
+
+
+# Class Work
+# 2
+adata.obs['batch']
+adata.obs['sample']
+
+sc.tl.rank_genes_groups(adata, groupby='batch', method='t-test', key_added='batch_ttest')
+sc.pl.rank_genes_groups(adata, n_genes=20, sharey=True, key="t-test")
+# 3
+sc.tl.rank_genes_groups(adata, groupby='sample', method='wilcoxon', key_added='sample_wilcoxon')
+sc.pl.rank_genes_groups(adata, n_genes=10, sharey=True, key="sample_wilcoxon")
+# 4
+sc.pl.rank_genes_groups_heatmap(adata, n_genes=10, key='wilcoxon', groupby="sample", show_gene_labels=True)
+
+
 
 ##GSEA
 
