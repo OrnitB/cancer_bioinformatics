@@ -110,8 +110,8 @@ gp.dotplot(summary, column= 'NES', title=f"Cluster {cluster} enrichment",
            top_term=20)
 
 
-
-
-
-
-
+# Class Work
+# 1
+adata = sc.datasets.pbmc3k_processed()
+# 2
+sc.pl.umap(adata, color=['louvain'])
