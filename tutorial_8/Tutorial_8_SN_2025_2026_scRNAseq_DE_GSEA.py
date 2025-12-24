@@ -78,7 +78,6 @@ sc.pl.rank_genes_groups(adata, n_genes=10, sharey=True, key="sample_wilcoxon")
 sc.pl.rank_genes_groups_heatmap(adata, n_genes=10, key='wilcoxon', groupby="sample", show_gene_labels=True)
 
 
-
 ##GSEA
 
 # UMAP
