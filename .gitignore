@@ -1,3 +1,4 @@
 homework_1/data_log2_cna.txt
 homework_1/data_mrna_seq_v2_rsem.txt
 *.h5ad
+.DS_Store
