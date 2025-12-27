@@ -113,5 +113,32 @@ gp.dotplot(summary, column= 'NES', title=f"Cluster {cluster} enrichment",
 # Class Work
 # 1
 adata = sc.datasets.pbmc3k_processed()
+
 # 2
 sc.pl.umap(adata, color=['louvain'])
+
+# 3
+sc.tl.rank_genes_groups(adata, groupby="louvain", method="t-test", groups=["CD8 T cells"])
+sc.pl.rank_genes_groups(adata, n_genes=10, sharey=False)
+
+# 4
+cluster = ["CD8 T cells"]
+ranked_genes = sc.get.rank_genes_groups_df(adata, group=cluster)
+gene_list = ranked_genes[["names", "scores"]]
+gene_list
+
+# 5
+pre_res = gp.prerank(
+    rnk=gene_list,
+    gene_sets="KEGG_2019_Human",
+    processes=4,
+    permutation_num=1000,  
+    outdir=None,          
+    seed=42
+)
+
+# 6
+summary = pre_res.res2d
+gp.dotplot(summary, column= 'NES', title=f"Cluster {cluster} enrichment",
+           top_term=20)
+
