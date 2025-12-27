@@ -88,6 +88,7 @@ scv.pl.scatter(adata, color=["root_cells", "end_points"], basis="umap")
 adata = sc.read("/Users/ornitb/Documents/Technion/research_and_studies/courses/ביואינפורמטיקה של סרטן/cancer_bioinformatics/tutorial_9/data/gastrulation_e75.h5ad")
 
 sc.pl.umap(adata,color="celltype")
+adata.shape
 
 sc.pp.neighbors(adata,n_neighbors=15)
 sc.tl.diffmap(adata)
