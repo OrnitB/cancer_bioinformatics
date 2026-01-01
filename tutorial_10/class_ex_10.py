@@ -9,7 +9,6 @@ Created on Thu Jan  1 10:46:37 2026
 import pandas as pd
 import numpy as np
 import os
-import scanpy as sc
 
 print(os.getcwd())
 
@@ -25,9 +24,19 @@ desired_cosmic_columns = [
 
 desired_cosmic_columns
 
-avg_norm_activity_by_ttype = sig_activity.groupby("tterm")[desired_cosmic_columns].mean()
+avg_norm_activity_by_ttype = sig_activity.groupby("ttype")[desired_cosmic_columns].mean()
 
 avg_norm_activity_by_ttype["top_signature"] = np.nan
 
 for ttype in avg_norm_activity_by_ttype.index:
-    avg_norm_activity_by_ttype.loc[]
+    avg_norm_activity_by_ttype.loc[avg_norm_activity_by_ttype.index==ttype,"top_signature"] = \
+        avg_norm_activity_by_ttype.loc[avg_norm_activity_by_ttype.index==ttype,desired_cosmic_columns].idxmax(axis=1)
+
+cols = list(set(desired_cosmic_columns).difference({"COSMIC1.norm","COSMIC5.norm"}))
+
+avg_norm_activity_by_ttype = sig_activity.groupby("ttype")[cols].mean()
+avg_norm_activity_by_ttype["top_signature"] = np.nan
+for ttype in avg_norm_activity_by_ttype.index:
+    avg_norm_activity_by_ttype.loc[avg_norm_activity_by_ttype.index==ttype,"top_signature"] = \
+        avg_norm_activity_by_ttype.loc[avg_norm_activity_by_ttype.index==ttype,cols].idxmax(axis=1)
+avg_norm_activity_by_ttype["top_signature"]
