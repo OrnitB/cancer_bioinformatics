@@ -10,10 +10,10 @@ import pandas as pd
 import numpy as np
 import os
 
-print(os.getcwd())
+os.getcwd()
 
-sig_activity = pd.read_csv("Documents/Technion/research_and_studies/courses/ביואינפורמטיקה של סרטן/cancer_bioinformatics/tutorial_10/sig_activity.csv")
-tcga_tumor_abbr = pd.read_csv("Documents/Technion/research_and_studies/courses/ביואינפורמטיקה של סרטן/cancer_bioinformatics/tutorial_10/TCGA_Study_Abbreviations.csv")
+sig_activity = pd.read_csv("sig_activity.csv")
+tcga_tumor_abbr = pd.read_csv("TCGA_Study_Abbreviations.csv")
 
 desired_cosmic_columns = sig_activity.columns.tolist()
 
