@@ -25,6 +25,7 @@ desired_cosmic_columns = [
 desired_cosmic_columns
 
 avg_norm_activity_by_ttype = sig_activity.groupby("ttype")[desired_cosmic_columns].mean()
+avg_norm_activity_by_ttype
 
 avg_norm_activity_by_ttype["top_signature"] = np.nan
 
