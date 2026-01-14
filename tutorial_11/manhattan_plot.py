@@ -10,12 +10,12 @@ import numpy as np
 def main():
     #INPUTS- TOUCH ONLY THAT
     #Your working directory
-    os.chdir(r"C:\Users\stavnaky\Desktop\Cancer Bioinformatics 2025_6\Tutorial_11_2025_2026 GWAS")
+    os.getcwd()
 
     #Logistic regression result on discrete phenotype
-    pheno_pop_logistic = r"hapmap1_pop.assoc.logistic"
+    pheno_pop_logistic = r"hapmap1_POP_GWAS.assoc.logistic"
     #Linear regression result on quantitative phenotype
-    pheno_qt_linear = r"hapmap1_qt.assoc.linear"
+    pheno_qt_linear = r"hapmap1_QT_GWAS.assoc.linear"
     
     #=====================DON'T TOUCH ANYTHING ELSE=================
     #Unless you really want to :)
@@ -102,3 +102,18 @@ def plot_manhattan(infile, outfile):
 
 if __name__ == "__main__":
     main()
+    
+    
+    
+    
+    
+# commands used in the classwork (tutorial 11):
+# 3: 
+#   plink --file hapmap1 --make-bed --out hapmap1_binary
+#       verify with: ls hapmap1_binary.*
+# 4:
+#       qt.phe → --linear
+#       pop.phe → --logistic
+#   plink --bfile hapmap1_binary --pheno qt.phe --linear --out hapmap1_QT_GWAS
+#   plink --bfile hapmap1_binary --pheno pop.phe --logistic --out hapmap1_POP_GWAS
+
